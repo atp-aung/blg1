@@ -3,7 +3,11 @@ const authorsRouter = require("express").Router();
 const Author = require("../models/author");
 
 authorsRouter.get("/", async (request, response) => {
-  const authors = await Author.find({});
+  const authors = await Author.find({}).populate("blogs", {
+    title: 1,
+    url: 1,
+    likes: 1,
+  });
   response.json(authors);
 });
 
